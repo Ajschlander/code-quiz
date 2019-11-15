@@ -114,13 +114,21 @@ html, body{
   padding: 1rem;
   margin-left: auto;
   margin-right: auto;
+  background-image: linear-gradient(#64B6AC, #3C6B7C);
+  background-repeat: no-repeat;
+  transition: background-size .5s, color .5s;
 }
 
 .start-btn:hover{
-  background: #64B6AC;
-  border: 1.5px solid #64B6AC;
+  background-size: 100% 100%;
   color: white;
-  transition: .75s;
   cursor: pointer;
 }
+
+.center-corner {
+  background-position: 50% 50%;
+  background-size: 0% 0%;
+}
+
+
 
