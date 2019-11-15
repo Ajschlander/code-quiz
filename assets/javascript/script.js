@@ -24,4 +24,15 @@ let questions = [
         choices: ["JavaSpoon", "JavaScript", "JustStyling", "Just sayin"],
         answer: "JavaScript"
     }
-]
+];
+
+function startQuiz() {
+  
+}
+
+let startButton = document.getElementById('start-button');
+
+startButton.addEventListener("click", function(){
+  this.style.visibility = "hidden";
+  startQuiz();
+});
