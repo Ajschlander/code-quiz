@@ -4,27 +4,27 @@ function startQuiz() {
   let questions = [
       {
           title: "What does JS stand for?",
-          choices: ["JavaSpoon", "XXXXXJavaScript", "JustStyling", "Just sayin"],
+          choices: ["FIRSTJavaSpoon", "JavaScript", "JustStyling", "Just sayin"],
           answer: "JavaScript"
       },
       {
           title: "What does JS stand for?",
-          choices: ["JavaSpoon", "JavaScriptXXXXXX", "JustStyling", "Just sayin"],
+          choices: ["SECONDJavaSpoon", "JavaScript", "JustStyling", "Just sayin"],
           answer: "JavaScript"
       },
       {
           title: "What does JS stand for?",
-          choices: ["JavaSpoon", "JavaScript", "JustStyling", "Just sayin"],
+          choices: ["THIRDJavaSpoon", "JavaScript", "JustStyling", "Just sayin"],
           answer: "JavaScript"
       },
       {
           title: "What does JS stand for?",
-          choices: ["JavaSpoon", "JavaScript", "JustStyling", "Just sayin"],
+          choices: ["FOURTHJavaSpoon", "JavaScript", "JustStyling", "Just sayin"],
           answer: "JavaScript"
       },
       {
           title: "What does JS stand for?",
-          choices: ["JavaSpoon", "JavaScripXXXt", "JustStyling", "Just sayin"],
+          choices: ["FIFTHJavaSpoon", "JavaScript", "JustStyling", "Just sayin"],
           answer: "JavaScript"
       }
   ];
@@ -37,11 +37,13 @@ function startQuiz() {
   const choicesField = document.getElementById('choices');
   const choiceOptions = document.getElementsByClassName('choiceArea');
   const choiceText = document.getElementsByClassName('option');
+  const answerArea = document.getElementById('answer');
+  const mainContainer = document.getElementById('container');
   let timer = document.getElementById('countdown');
 
-  function loopObjectArray(){
+  function loopFirstObjectArray(){
     // Loop through the array of objects
-    for (var i = 0; i < questions.length; i++) {
+    for (var i = 0; i < 1; i++) {
       questionField.innerHTML = questions[i].title;
       console.log(questions[i].title);
       // Loop through the array of choices inside the object
@@ -52,7 +54,7 @@ function startQuiz() {
       }
     }
   }
-
+// Countdown timer function
   function countdown(){
     let sec = 75;
     countdown = setInterval(function(){
@@ -62,7 +64,6 @@ function startQuiz() {
             clearInterval(countdown);
         }
     }, 1000);
-    console.log("this is the timer function");
 }
 
   // Add event listener to start button
@@ -72,17 +73,27 @@ function startQuiz() {
     choicesField.classList.toggle("hidden");
     line.classList.toggle("hidden");
     countdown();
-    loopObjectArray();
+    loopFirstObjectArray();
   });
 
   // Add an event listener to the choices
-  for (var i = 0; i < choiceOptions.length; i++) {
-    const option = choiceOptions[i];
-    option.addEventListener("click", function(){
-      // check to see if the option clicked is the same as the answer
-      console.log(option.innerHTML);
+  for (var i = 0; i < choiceText.length; i++) {
+    const choiceTextButton = choiceText[i];
+    choiceTextButton.addEventListener("click", function(){
+      const guess = choiceTextButton.innerHTML;
+      // Check the guess
+      if (guess === questions[i].answer) {
+        answerArea.classList.toggle("hidden");
+        answerArea.innerHTML = "Correct!";
+      }
+      else{
+        answerArea.classList.toggle("hidden");
+        answerArea.innerHTML = "Wrong!";
+        mainContainer.classList.add("shake");
+      }
     });
   }
+
 }
 
 startQuiz();
