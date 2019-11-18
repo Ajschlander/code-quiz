@@ -41,7 +41,7 @@ function startQuiz() {
   const mainContainer = document.getElementById('container');
   let timer = document.getElementById('countdown');
 
-  function loopFirstObjectArray(){
+  function loopFirstObject(){
     // Loop through the array of objects
     for (var i = 0; i < 1; i++) {
       questionField.innerHTML = questions[i].title;
@@ -73,7 +73,7 @@ function startQuiz() {
     choicesField.classList.toggle("hidden");
     line.classList.toggle("hidden");
     countdown();
-    loopFirstObjectArray();
+    loopFirstObject();
   });
 
   // Add an event listener to the choices
