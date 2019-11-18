@@ -7,10 +7,39 @@ html, body{
 
 @import 'https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300';
 
+.center-corner {
+  background-position: 50% 50%;
+  background-size: 0% 0%;
+}
+
+.question{
+  font-size: 32px;
+  font-weight: 700;
+  font-family: 'Sanchez', serif;
+  text-align: left;
+}
+
+.choice{
+  color: white;
+  background: purple;
+  border-radius: 4px;
+  text-align: left;
+  padding-left: 1rem;
+  width: 25%;
+  cursor: pointer;
+}
+
+.hidden{
+  visibility: hidden;
+}
+
 .text-center{
   text-align: center;
 }
 
+/**********************
+    BUTTON STYLING
+**********************/
 .btn {
 	line-height: 50px;
 	height: 50px;
@@ -123,13 +152,4 @@ html, body{
   background-size: 100% 100%;
   color: white;
   cursor: pointer;
-}
-
-.center-corner {
-  background-position: 50% 50%;
-  background-size: 0% 0%;
-}
-
-.hidden{
-  visibility: hidden;
 }
