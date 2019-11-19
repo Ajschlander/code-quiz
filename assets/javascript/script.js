@@ -27,8 +27,6 @@ let questions = [
     }
   ];
 
-// ON THE STEP OF CLEARING THE QUESTION FIELD TO REPOPULATE
-
 const mainContainer = document.getElementById('container');
 const startButton = document.getElementById('start-btn');
 const timer = document.getElementById('countdown');
@@ -68,7 +66,14 @@ function startQuiz(){
 
 function nextQuestion(){
     resetQuestionContainer();
-    showQuestion(randomQuestions[currentQuestion]);
+    if (currentQuestion >= randomQuestions.length) {
+      const highscore = sec;
+      
+      timerContainer.classList.toggle("hidden");
+    }
+    else{
+      showQuestion(randomQuestions[currentQuestion]);
+    }
 }
 
 function resetQuestionContainer() {
