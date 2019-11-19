@@ -122,10 +122,6 @@ function checkAnswer(e){
     }
 }
 
-for (var i = 0; i < questions.length; i++) {
-
-}
-
 
 
 
