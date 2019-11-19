@@ -63,7 +63,7 @@ function startQuiz(){
     currentQuestion = 0;
     // Getting the next question
     nextQuestion();
-    countdown();    
+    countdown();
 }
 
 function nextQuestion(){
@@ -73,25 +73,26 @@ function nextQuestion(){
 
 function resetQuestionContainer() {
     while (choicesElement.firstChild) {
-      choicesElement.removeChild(choicesElement.firstChild)
+      choicesElement.removeChild(choicesElement.firstChild);
     }
     while (questionElement.firstChild){
-        questionElement.removeChild(questionElement.firstChild)
+        questionElement.removeChild(questionElement.firstChild);
+    }
+    while(answerArea.firstChild){
+      answerArea.removeChild(answerArea.firstChild)
     }
   }
 
 function showQuestion(question){
-    questionElement.innerText = question.title;    
+    questionElement.innerText = question.title;
     for (let i = 0; i < question.choices.length; i++) {
         const div = document.createElement('div');
         div.innerText = question.choices[i];
         div.classList.add('choicesArea');
-        div.addEventListener("click", checkAnswer);        
-        choicesElement.appendChild(div);    
+        div.addEventListener("click", checkAnswer);
+        choicesElement.appendChild(div);
     }
     correctAnswer = question.answer;
-    console.log(correctAnswer);
-    console.log(currentQuestion);      
 }
 
 function checkAnswer(e){
@@ -99,15 +100,30 @@ function checkAnswer(e){
     if(guess.innerHTML === correctAnswer){
         answerArea.classList.toggle("hidden");
         answerArea.innerHTML = "Correct!";
-        setTimeout(resetQuestionContainer, 2000);
+        currentQuestion++;
+        setTimeout(function(){
+          nextQuestion();
+          answerArea.classList.toggle("hidden");
+        }, 1000);
     }
     else{
         answerArea.classList.toggle("hidden");
-        mainContainer.classList.add("shake");
-        timerContainer.classList.add("shake")
+        mainContainer.classList.toggle("shake");
+        timerContainer.classList.toggle("shake");
 ;        answerArea.innerHTML = "Wrong!";
         sec -= 15;
+        currentQuestion++;
+        setTimeout(function(){
+          nextQuestion();
+          answerArea.classList.toggle("hidden");
+          mainContainer.classList.toggle("shake");
+          timerContainer.classList.toggle("shake");
+        }, 1000);
     }
+}
+
+for (var i = 0; i < questions.length; i++) {
+
 }
 
 
