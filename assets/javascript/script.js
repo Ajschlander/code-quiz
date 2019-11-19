@@ -27,17 +27,22 @@ let questions = [
     }
   ];
 
+// ON THE STEP OF CLEARING THE QUESTION FIELD TO REPOPULATE
+
+const mainContainer = document.getElementById('container');
 const startButton = document.getElementById('start-btn');
 const timer = document.getElementById('countdown');
+const timerContainer = document.getElementById('timer-container')
 const questionElement = document.getElementById('question');
 const choicesElement = document.getElementById('choices');
 const lineElement = document.getElementById('hr-line');
+const answerArea = document.getElementById('answer');
 startButton.addEventListener("click", startQuiz);
 
+let sec = (questions.length * 15);
 let randomQuestions, currentQuestion, correctAnswer;
 
 function countdown(){
-    let sec = (questions.length * 15);
     countdown = setInterval(function(){
         timer.innerHTML = sec + " seconds";
         sec--;
@@ -57,7 +62,8 @@ function startQuiz(){
     // Setting the current question to position 0
     currentQuestion = 0;
     // Getting the next question
-    nextQuestion();    
+    nextQuestion();
+    countdown();    
 }
 
 function nextQuestion(){
@@ -68,6 +74,9 @@ function nextQuestion(){
 function resetQuestionContainer() {
     while (choicesElement.firstChild) {
       choicesElement.removeChild(choicesElement.firstChild)
+    }
+    while (questionElement.firstChild){
+        questionElement.removeChild(questionElement.firstChild)
     }
   }
 
@@ -88,7 +97,16 @@ function showQuestion(question){
 function checkAnswer(e){
     const guess = e.target;
     if(guess.innerHTML === correctAnswer){
-        
+        answerArea.classList.toggle("hidden");
+        answerArea.innerHTML = "Correct!";
+        setTimeout(resetQuestionContainer, 2000);
+    }
+    else{
+        answerArea.classList.toggle("hidden");
+        mainContainer.classList.add("shake");
+        timerContainer.classList.add("shake")
+;        answerArea.innerHTML = "Wrong!";
+        sec -= 15;
     }
 }
 
