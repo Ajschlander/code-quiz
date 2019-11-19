@@ -1,62 +1,43 @@
-function startQuiz() {
-
-  // Create an array of questions, choices, and answers
-  let questions = [
-      {
-          title: "What does JS stand for?",
-          choices: ["FIRSTJavaSpoon", "JavaScript", "JustStyling", "Just sayin"],
-          answer: "JavaScript"
-      },
-      {
-          title: "What does JS stand for?",
-          choices: ["SECONDJavaSpoon", "JavaScript", "JustStyling", "Just sayin"],
-          answer: "JavaScript"
-      },
-      {
-          title: "What does JS stand for?",
-          choices: ["THIRDJavaSpoon", "JavaScript", "JustStyling", "Just sayin"],
-          answer: "JavaScript"
-      },
-      {
-          title: "What does JS stand for?",
-          choices: ["FOURTHJavaSpoon", "JavaScript", "JustStyling", "Just sayin"],
-          answer: "JavaScript"
-      },
-      {
-          title: "What does JS stand for?",
-          choices: ["FIFTHJavaSpoon", "JavaScript", "JustStyling", "Just sayin"],
-          answer: "JavaScript"
-      }
+// Create an array of questions, choices, and answers
+let questions = [
+    {
+        title: "What does JS stand for?",
+        choices: ["JavaSpoon", "JavaScript", "JustStyling", "Just sayin"],
+        answer: "JavaScript"
+    },
+    {
+        title: "What is a function called when it is attached on an object?",
+        choices: ["Method", "Function", "Callback", "Variable"],
+        answer: "Method"
+    },
+    {
+        title: "How do you add one new element at the end of an array?",
+        choices: ["Add", "Shift", "Push", "Remove"],
+        answer: "Push"
+    },
+    {
+        title: "How do you convert a string to all uppercase letters?",
+        choices: ["toCaps", "toUpperCase", "goUpper", "changeCase"],
+        answer: "toUpperCase"
+    },
+    {
+        title: "Which one of the following is NOT a JavaScript data type?",
+        choices: ["Boolean", "String", "Object", "Language"],
+        answer: "Language"
+    }
   ];
 
-  // Select the startbutton
-  const startButton = document.getElementById('start-button');
-  // Select the fields that will be updating
-  const questionField = document.getElementById('question');
-  const line = document.getElementById('hr-line')
-  const choicesField = document.getElementById('choices');
-  const choiceOptions = document.getElementsByClassName('choiceArea');
-  const choiceText = document.getElementsByClassName('option');
-  const answerArea = document.getElementById('answer');
-  const mainContainer = document.getElementById('container');
-  let timer = document.getElementById('countdown');
+const startButton = document.getElementById('start-btn');
+const timer = document.getElementById('countdown');
+const questionElement = document.getElementById('question');
+const choicesElement = document.getElementById('choices');
+const lineElement = document.getElementById('hr-line');
+startButton.addEventListener("click", startQuiz);
 
-  function loopFirstObject(){
-    // Loop through the array of objects
-    for (var i = 0; i < 1; i++) {
-      questionField.innerHTML = questions[i].title;
-      console.log(questions[i].title);
-      // Loop through the array of choices inside the object
-      for (var x = 0; x < questions[i].choices.length; x++) {
-        const choice = questions[i].choices[x];
-        choiceText[x].innerHTML = choice;
-        console.log(choice);
-      }
-    }
-  }
-// Countdown timer function
-  function countdown(){
-    let sec = 75;
+let randomQuestions, currentQuestion, correctAnswer;
+
+function countdown(){
+    let sec = (questions.length * 15);
     countdown = setInterval(function(){
         timer.innerHTML = sec + " seconds";
         sec--;
@@ -66,34 +47,124 @@ function startQuiz() {
     }, 1000);
 }
 
-  // Add event listener to start button
-  startButton.addEventListener("click", function(){
-    this.classList.toggle("hidden");
-    questionField.classList.toggle("hidden");
-    choicesField.classList.toggle("hidden");
-    line.classList.toggle("hidden");
-    countdown();
-    loopFirstObject();
-  });
-
-  // Add an event listener to the choices
-  for (var i = 0; i < choiceText.length; i++) {
-    const choiceTextButton = choiceText[i];
-    choiceTextButton.addEventListener("click", function(){
-      const guess = choiceTextButton.innerHTML;
-      // Check the guess
-      if (guess === questions[i].answer) {
-        answerArea.classList.toggle("hidden");
-        answerArea.innerHTML = "Correct!";
-      }
-      else{
-        answerArea.classList.toggle("hidden");
-        answerArea.innerHTML = "Wrong!";
-        mainContainer.classList.add("shake");
-      }
-    });
-  }
-
+function startQuiz(){
+    startButton.classList.toggle("hidden");
+    questionElement.classList.toggle("hidden");
+    choicesElement.classList.toggle('hidden');
+    lineElement.classList.toggle('hidden');
+    // Randomly sorting the array of objects
+    randomQuestions = questions.sort(() => Math.random() - .5);
+    // Setting the current question to position 0
+    currentQuestion = 0;
+    // Getting the next question
+    nextQuestion();    
 }
 
-startQuiz();
+function nextQuestion(){
+    resetQuestionContainer();
+    showQuestion(randomQuestions[currentQuestion]);
+}
+
+function resetQuestionContainer() {
+    while (choicesElement.firstChild) {
+      choicesElement.removeChild(choicesElement.firstChild)
+    }
+  }
+
+function showQuestion(question){
+    questionElement.innerText = question.title;    
+    for (let i = 0; i < question.choices.length; i++) {
+        const div = document.createElement('div');
+        div.innerText = question.choices[i];
+        div.classList.add('choicesArea');
+        div.addEventListener("click", checkAnswer);        
+        choicesElement.appendChild(div);    
+    }
+    correctAnswer = question.answer;
+    console.log(correctAnswer);
+    console.log(currentQuestion);      
+}
+
+function checkAnswer(e){
+    const guess = e.target;
+    if(guess.innerHTML === correctAnswer){
+        
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//   // Select the startbutton
+//   const startButton = document.getElementById('start-button');
+//   // Select the fields that will be updating
+//   const questionField = document.getElementById('question');
+//   const line = document.getElementById('hr-line')
+//   const choicesField = document.getElementById('choices');
+//   const choiceOptions = document.getElementsByClassName('choiceArea');
+//   const choiceText = document.getElementsByClassName('option');
+//   const answerArea = document.getElementById('answer');
+//   const mainContainer = document.getElementById('container');
+//   let timer = document.getElementById('countdown');
+
+//   function loopFirstObject(){
+//     // Loop through the array of objects
+//     for (var i = 0; i < 1; i++) {
+//       questionField.innerHTML = questions[i].title;
+//       console.log(questions[i].title);
+//       // Loop through the array of choices inside the object
+//       for (var x = 0; x < questions[i].choices.length; x++) {
+//         const choice = questions[i].choices[x];
+//         choiceText[x].innerHTML = choice;
+//         console.log(choice);
+//       }
+//     }
+//   }
+// // Countdown timer function
+
+//   // Add event listener to start button
+//   startButton.addEventListener("click", function(){
+//     this.classList.toggle("hidden");
+//     questionField.classList.toggle("hidden");
+//     choicesField.classList.toggle("hidden");
+//     line.classList.toggle("hidden");
+//     countdown();
+//     loopFirstObject();
+//   });
+
+//   // Add an event listener to the choices
+//   for (var i = 0; i < choiceText.length; i++) {
+//     const choiceTextButton = choiceText[i];
+//     choiceTextButton.addEventListener("click", function(){
+//       const guess = choiceTextButton.innerHTML;
+//       // Check the guess
+//       if (guess === questions[i].answer) {
+//         answerArea.classList.toggle("hidden");
+//         answerArea.innerHTML = "Correct!";
+//       }
+//       else{
+//         answerArea.classList.toggle("hidden");
+//         answerArea.innerHTML = "Wrong!";
+//         mainContainer.classList.add("shake");
+//       }
+//     });
+//   }
