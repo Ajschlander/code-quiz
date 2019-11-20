@@ -36,9 +36,9 @@ const choicesElement = document.getElementById('choices');
 const lineElement = document.getElementById('hr-line');
 const answerArea = document.getElementById('answer');
 startButton.addEventListener("click", startQuiz);
-
 let sec = (questions.length * 15);
-let randomQuestions, currentQuestion, correctAnswer;
+let randomQuestions, currentQuestion, correctAnswer, highscore, userInitials;
+let scores = [];
 
 function countdown(){
     countdown = setInterval(function(){
@@ -67,13 +67,39 @@ function startQuiz(){
 function nextQuestion(){
     resetQuestionContainer();
     if (currentQuestion >= randomQuestions.length) {
-      const highscore = sec;
-      
+      highscore = sec;
+      scores.push(highscore);
+      window.localStorage.setItem("highscores", JSON.stringify(scores));
       timerContainer.classList.toggle("hidden");
+      questionElement.innerText = "All done!";
+      createForm();
     }
     else{
       showQuestion(randomQuestions[currentQuestion]);
     }
+}
+
+function createForm(){
+  const input = document.createElement('input');
+  input.placeholder = "Enter initials";
+  input.classList.add('initials');
+  choicesElement.appendChild(input);
+  const submit = document.createElement('button');
+  submit.classList.add("submit");
+  submit.innerText = "Submit";
+  choicesElement.appendChild(submit);
+  // Add event listener to submit button
+  submit.addEventListener("click", function(){
+    userInitials = input.value;
+    if(userInitials.length === 2){
+      resetQuestionContainer();
+      startButton.classList.toggle("hidden");
+      viewHighscores();
+    }
+    else {
+      viewHighscores();
+    }
+  });
 }
 
 function resetQuestionContainer() {
@@ -86,7 +112,18 @@ function resetQuestionContainer() {
     while(answerArea.firstChild){
       answerArea.removeChild(answerArea.firstChild)
     }
+}
+
+function viewHighscores(){
+  questionElement.innerText = "Highscores";
+  let scores2 = JSON.parse(window.localStorage.getItem('highscores'));
+  for (var i = 0; i < scores.length; i++) {
+    const p = document.createElement('p');
+    p.innerText = userInitials + " - " + scores2[i];
+    p.classList.add("score");
+    choicesElement.appendChild(p);
   }
+}
 
 function showQuestion(question){
     questionElement.innerText = question.title;
