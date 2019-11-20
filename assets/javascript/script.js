@@ -30,7 +30,9 @@ let questions = [
 const mainContainer = document.getElementById('container');
 const startButton = document.getElementById('start-btn');
 const timer = document.getElementById('countdown');
-const timerContainer = document.getElementById('timer-container')
+const timerContainer = document.getElementById('timer-container');
+const viewHighscoreBtn = document.getElementById('view-highscores');
+viewHighscoreBtn.addEventListener("click", viewHighscores);
 const questionElement = document.getElementById('question');
 const choicesElement = document.getElementById('choices');
 const lineElement = document.getElementById('hr-line');
@@ -51,10 +53,10 @@ function countdown(){
 }
 
 function startQuiz(){
-    startButton.classList.toggle("hidden");
-    questionElement.classList.toggle("hidden");
-    choicesElement.classList.toggle('hidden');
-    lineElement.classList.toggle('hidden');
+    startButton.classList.add("hidden");
+    questionElement.classList.remove("hidden");
+    choicesElement.classList.remove('hidden');
+    lineElement.classList.remove('hidden');
     // Randomly sorting the array of objects
     randomQuestions = questions.sort(() => Math.random() - .5);
     // Setting the current question to position 0
@@ -70,7 +72,7 @@ function nextQuestion(){
       highscore = sec;
       scores.push(highscore);
       window.localStorage.setItem("highscores", JSON.stringify(scores));
-      timerContainer.classList.toggle("hidden");
+      timerContainer.classList.add("hidden");
       questionElement.innerText = "All done!";
       createForm();
     }
@@ -115,7 +117,9 @@ function resetQuestionContainer() {
 }
 
 function viewHighscores(){
+  questionElement.classList.remove("hidden");
   questionElement.innerText = "Highscores";
+  lineElement.classList.remove("hidden");
   let scores2 = JSON.parse(window.localStorage.getItem('highscores'));
   for (var i = 0; i < scores.length; i++) {
     const p = document.createElement('p');
