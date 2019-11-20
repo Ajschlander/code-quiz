@@ -57,6 +57,7 @@ function startQuiz(){
     questionElement.classList.remove("hidden");
     choicesElement.classList.remove('hidden');
     lineElement.classList.remove('hidden');
+    viewHighscoreBtn.classList.add("hidden");
     // Randomly sorting the array of objects
     randomQuestions = questions.sort(() => Math.random() - .5);
     // Setting the current question to position 0
@@ -120,6 +121,9 @@ function viewHighscores(){
   questionElement.classList.remove("hidden");
   questionElement.innerText = "Highscores";
   lineElement.classList.remove("hidden");
+  while (choicesElement.firstChild) {
+    choicesElement.removeChild(choicesElement.firstChild);
+  }
   let scores2 = JSON.parse(window.localStorage.getItem('highscores'));
   for (var i = 0; i < scores.length; i++) {
     const p = document.createElement('p');
