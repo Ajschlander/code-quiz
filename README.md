@@ -5,7 +5,7 @@ A timer-based quiz application that store high scores client-side.
 All you need to run this app is any modern browser. You can install google chrome here: https://www.google.com/chrome/
 
 # Deployment
-
+You can find the live site at: https://ajschlander.github.io/code-quiz/landing.html
 
 # Built With
 This program was built using HTML, CSS, and Javascript
